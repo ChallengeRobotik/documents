@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation - Challenge Robotik</title>
+    <title>Docs - Challenge Robotik</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -14,89 +14,29 @@
             --glass: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-main: #f8fafc;
-            --text-dim: #94a3b8;
         }
-
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: var(--bg-dark); 
-            color: var(--text-main); 
-            margin: 0; padding: 20px;
-            overflow-x: hidden;
-        }
-
-        .container { max-width: 1200px; margin: 0 auto; }
-
-        /* Header style index.html */
-        header { 
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 20px; margin-bottom: 30px; 
-            background: rgba(30, 41, 59, 0.5); border-radius: 20px;
-            border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
-        }
-
-        /* Grille des documents */
-        .doc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .doc-card {
-            background: var(--glass); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 20px; transition: 0.3s;
-            cursor: pointer; position: relative;
-        }
-
-        .doc-card:hover { 
-            background: rgba(255,255,255,0.08); 
-            border-color: var(--primary-blue);
-            transform: translateY(-5px);
-        }
-
-        .btn-open {
-            margin-top: 15px; width: 100%;
-            background: var(--primary-blue); color: white;
-            border: none; padding: 10px; border-radius: 10px;
-            font-weight: 700; cursor: pointer;
-        }
-
-        /* LA VISIONNEUSE (MODALE) */
-        .viewer-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none; z-index: 1000;
-            flex-direction: column; align-items: center; justify-content: center;
-        }
-
-        .viewer-container {
-            width: 90%; height: 85%;
-            background: #1a1a1a; border-radius: 15px;
-            position: relative; overflow: hidden;
-            border: 1px solid var(--glass-border);
-        }
-
-        .viewer-header {
-            width: 90%; display: flex; justify-content: space-between;
-            padding: 15px 0; color: white;
-        }
-
-        .close-btn {
-            background: var(--primary-blue); border: none; color: white;
-            padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: 700;
-        }
-
+        body { font-family: 'Montserrat', sans-serif; background: var(--bg-dark); color: var(--text-main); margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { background: rgba(30, 41, 59, 0.5); padding: 20px; border-radius: 20px; border: 1px solid var(--glass-border); text-align: center; margin-bottom: 30px; }
+        .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .doc-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px; cursor: pointer; transition: 0.3s; text-align: center; }
+        .doc-card:hover { border-color: var(--primary-blue); transform: translateY(-5px); background: rgba(255,255,255,0.08); }
+        .btn-open { margin-top: 15px; width: 100%; background: var(--primary-blue); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        
+        /* Visionneuse Overlay */
+        .viewer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
+        .viewer-header { width: 95%; display: flex; justify-content: space-between; padding: 15px; }
+        .viewer-container { width: 95%; height: 85%; background: white; border-radius: 10px; overflow: hidden; }
         iframe { width: 100%; height: 100%; border: none; }
+        .close-btn { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <div style="display:flex; align-items:center; gap:15px;">
-            <img src="https://i.ibb.co/XxJybFzH/Design-sans-titre.png" height="40">
-            <h2 style="margin:0">DOCUMENTS OFFICIELS</h2>
-        </div>
+        <img src="https://i.ibb.co/XxJybFzH/Design-sans-titre.png" height="50">
+        <h1>DOCUMENTS ROBOTIK</h1>
     </header>
 
     <div class="doc-grid" id="docGrid"></div>
@@ -104,8 +44,8 @@
 
 <div class="viewer-overlay" id="viewer">
     <div class="viewer-header">
-        <span id="viewer-title" style="font-weight:700">Nom du fichier</span>
-        <button class="close-btn" onclick="closeViewer()">FERMER ×</button>
+        <span id="viewer-title" style="font-weight:700">Aperçu</span>
+        <button class="close-btn" onclick="closeViewer()">FERMER</button>
     </div>
     <div class="viewer-container">
         <iframe id="pdf-frame" src=""></iframe>
@@ -113,20 +53,15 @@
 </div>
 
 <script>
-    // --- TES DOCUMENTS ---
-    // Note : Pour GitHub, mets les PDF dans un dossier 'documents'
+    // BASE DE DONNÉES MISE À JOUR AVEC LE NOUVEAU NOM
     const DATABASE = [
         { 
-            title: "Règlement Officiel 2025-2026", 
-            cat: "Reglement", 
-            file: "documents/reglement 2025-2026 officiel.pdf.pdf", 
-            date: "Octobre 2025" 
+            title: "Règlement 2025-2026", 
+            file: "reglement 2025-2026 officiel.pdf (2)" 
         },
         { 
-            title: "Liste des Projets & Membres", 
-            cat: "Projets", 
-            file: "documents/Projets.pdf", 
-            date: "Février 2026" 
+            title: "Projets & Membres", 
+            file: "Projets.pdf" 
         }
     ];
 
@@ -134,13 +69,9 @@
         const grid = document.getElementById('docGrid');
         grid.innerHTML = DATABASE.map((doc, index) => `
             <div class="doc-card" onclick="openViewer(${index})">
-                <div style="color:var(--primary-green); font-size:10px; font-weight:800; margin-bottom:10px;">${doc.cat.toUpperCase()}</div>
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
-                    <i data-lucide="file-text" color="#0062ff"></i>
-                    <h3 style="margin:0; font-size:16px;">${doc.title}</h3>
-                </div>
-                <div style="font-size:12px; color:var(--text-dim)">Mis à jour : ${doc.date}</div>
-                <button class="btn-open">Lire maintenant</button>
+                <i data-lucide="file-text" size="40" color="#0062ff"></i>
+                <h3 style="margin:15px 0;">${doc.title}</h3>
+                <button class="btn-open">Lire le PDF</button>
             </div>
         `).join('');
         lucide.createIcons();
@@ -151,17 +82,14 @@
         document.getElementById('viewer-title').innerText = doc.title;
         document.getElementById('pdf-frame').src = doc.file;
         document.getElementById('viewer').style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // Bloque le scroll derrière
     }
 
     function closeViewer() {
         document.getElementById('viewer').style.display = 'none';
         document.getElementById('pdf-frame').src = "";
-        document.body.style.overflow = 'auto';
     }
 
     window.onload = render;
 </script>
-
 </body>
 </html>
